@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -17,5 +18,7 @@ public class RequestDAO {
     private Long id;
     @Column(name = "request_value")
     private String requestValue;
+    @OneToMany(mappedBy = "requestDao", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BookDao> bookDaoList;
 }
 
