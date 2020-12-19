@@ -12,6 +12,7 @@
     <artifactId>intro</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>intro</name>
+    <packaging>war</packaging>
     <description>Test project for introduction</description>
 
     <properties>
@@ -75,6 +76,11 @@
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct-processor</artifactId>
             <version>1.4.1.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
