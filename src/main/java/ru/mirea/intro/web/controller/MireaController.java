@@ -22,7 +22,7 @@ public class MireaController {
     }
 
     @PostMapping("/post-method")
-    public ResponseEntity<Response<String>> postMethod(@RequestBody RequestDto requestDto, @RequestParam Optional<String> optionalStringValue) {
+    public ResponseEntity<Response<String>> postMethod(@RequestBody RequestDto requestDto) {
         try {
             Request request = RequestMapper.REQUEST_MAPPER.requestDTOToRequest(requestDto);
             String testServiceResponse = testService.testServicePostMethod(request);
@@ -43,4 +43,26 @@ public class MireaController {
             return new ResponseEntity<>(new Response<>(new Meta(1, e.toString()), null), HttpStatus.CONFLICT);
         }
     }
+
+    @PutMapping("/put-method")
+    public ResponseEntity<Response<String>> putMethod(@RequestBody RequestDto requestDto) {
+        try {
+            Request request = RequestMapper.REQUEST_MAPPER.requestDTOToRequest(requestDto);
+            String testServiceResponse = testService.testServicePutMethod(request);
+            return new ResponseEntity<>(new Response<>(new Meta(0, "All good!"), testServiceResponse), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new Response<>(new Meta(1, e.toString()), null), HttpStatus.CONFLICT);
+        }
+    }
+
+    @DeleteMapping("/delete-method")
+    public ResponseEntity<Response<String>> deleteMethod(@RequestParam Long id) {
+        try {
+            String testServiceResponse = testService.testServiceDeleteMethod(id);
+            return new ResponseEntity<>(new Response<>(new Meta(0, "All good!"), testServiceResponse), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new Response<>(new Meta(1, e.toString()), null), HttpStatus.CONFLICT);
+        }
+    }
+
 }

@@ -9,6 +9,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @Entity
+
 @Table(name = "Requests", schema = "public")
 public class RequestDAO {
     @Id
@@ -20,5 +21,10 @@ public class RequestDAO {
     private String requestValue;
     @OneToMany(mappedBy = "requestDao", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BookDao> bookDaoList;
+
+    public void updateBookDaoList(List<BookDao> bookList) {
+        bookDaoList.clear();
+        bookDaoList.addAll(bookList);
+    }
 }
 

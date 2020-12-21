@@ -23,6 +23,7 @@ public class SwaggerConfiguration {
 
     @Bean
     public Docket swaggerSpringfoxDocket() {
+
         Contact contact = new Contact(
                 "SAS CI Implementation Team",
                 "https://www.sas.com/ru_ru/home.html",

@@ -8,4 +8,8 @@ public interface TestService {
     Request testServiceGetMethod(Long id) throws NoSuchRequest;
 
     String testServicePostMethod(Request request);
+
+    String testServicePutMethod(Request request) throws NoSuchRequest;
+
+    String testServiceDeleteMethod(Long id) throws NoSuchRequest;
 }
