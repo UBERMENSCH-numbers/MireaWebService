@@ -35,10 +35,10 @@ class TestServiceImplTest {
     @Transactional
     void testServiceGetMethod() throws NoSuchRequest { //этот тест всегда будет фейлиться, ведь поле Id у книги стоит с параметром (strategy = GenerationType.AUTO).
         List<Book> bookList = new ArrayList<>();
-        bookList.add(new Book(1L, "Толстой", "Война и мир"));
-        Request request = new Request(1L, "Первый запрос", bookList);
+        bookList.add(new Book(100L, "Толстой", "Война и мир"));
+        Request request = new Request(100L, "Первый запрос", bookList);
         testService.testServicePostMethod(request);
-        Assertions.assertEquals(request, testService.testServiceGetMethod(1L));
+        Assertions.assertEquals(request, testService.testServiceGetMethod(100L));
     }
 
 

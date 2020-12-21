@@ -1,5 +1,6 @@
 package ru.mirea.intro.web.controller;
 
+import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,9 +11,9 @@ import ru.mirea.intro.web.to.Meta;
 import ru.mirea.intro.web.to.RequestDto;
 import ru.mirea.intro.web.to.Response;
 
-import java.util.Optional;
 
 @RestController
+@Api(value = "MireaController API",description = "Description of my MireaController RESTfull API ")
 @RequestMapping("api/mirea")
 public class MireaController {
     private final TestService testService;
@@ -22,6 +23,8 @@ public class MireaController {
     }
 
     @PostMapping("/post-method")
+    @ApiOperation(value = "add request and all books in data base")
+    @ApiImplicitParam(name = "requestDto", value = "request model with list of book models")
     public ResponseEntity<Response<String>> postMethod(@RequestBody RequestDto requestDto) {
         try {
             Request request = RequestMapper.REQUEST_MAPPER.requestDTOToRequest(requestDto);
@@ -34,6 +37,8 @@ public class MireaController {
     }
 
     @GetMapping("/get-method")
+    @ApiOperation(value = "get request and all books of that request from data base by id")
+    @ApiImplicitParam(name = "id", value = "id of request in data base")
     public ResponseEntity<Response<RequestDto>> getMethod(@RequestParam Long id) {
         try {
             Request request = testService.testServiceGetMethod(id);
@@ -45,6 +50,10 @@ public class MireaController {
     }
 
     @PutMapping("/put-method")
+    @ApiOperation(value = "update request and inner books rows in database",
+    notes = "request id must exist in database \n" +
+            "method delete all books from old request, and add all books from new request")
+    @ApiImplicitParam(name = "requestDto", value = "request model with list of book models to update")
     public ResponseEntity<Response<String>> putMethod(@RequestBody RequestDto requestDto) {
         try {
             Request request = RequestMapper.REQUEST_MAPPER.requestDTOToRequest(requestDto);
@@ -56,6 +65,8 @@ public class MireaController {
     }
 
     @DeleteMapping("/delete-method")
+    @ApiOperation(value = "delete request and all books from this request from data base by request id")
+    @ApiImplicitParam(name = "id", value = "id of request in data base")
     public ResponseEntity<Response<String>> deleteMethod(@RequestParam Long id) {
         try {
             String testServiceResponse = testService.testServiceDeleteMethod(id);
