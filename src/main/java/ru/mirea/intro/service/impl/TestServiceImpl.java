@@ -41,10 +41,8 @@ public class TestServiceImpl implements TestService {
         RequestDAO requestDAO = RequestMapper.REQUEST_MAPPER.requestToRequestDAO(request);
         Optional<RequestDAO> optionalRequestDAO = requestRepository.findById(requestDAO.getId());
         if (!optionalRequestDAO.isPresent()) throw new NoSuchRequest();
-        requestDAO.getBookDaoList().forEach(bookDao -> bookDao.setRequestDao(optionalRequestDAO.get()));
-        optionalRequestDAO.get().setRequestValue(requestDAO.getRequestValue());
-        optionalRequestDAO.get().updateBookDaoList(requestDAO.getBookDaoList());
-        requestRepository.save(optionalRequestDAO.get());
+        requestDAO.getBookDaoList().forEach(bookDao -> bookDao.setRequestDao(requestDAO));
+        requestRepository.save(requestDAO);
         return "Successfully updated row!";
     }
 

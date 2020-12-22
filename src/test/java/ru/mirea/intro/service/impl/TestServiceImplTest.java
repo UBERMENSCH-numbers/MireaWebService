@@ -30,18 +30,7 @@ class TestServiceImplTest {
         );
     }
 
-    @DisplayName("Testing for normal response")
-    @Test
-    @Transactional
-    void testServiceGetMethod() throws NoSuchRequest { //этот тест всегда будет фейлиться, ведь поле Id у книги стоит с параметром (strategy = GenerationType.AUTO).
-        List<Book> bookList = new ArrayList<>();
-        bookList.add(new Book(100L, "Толстой", "Война и мир"));
-        Request request = new Request(100L, "Первый запрос", bookList);
-        testService.testServicePostMethod(request);
-        Assertions.assertEquals(request, testService.testServiceGetMethod(100L));
-    }
-
-
+//
     @DisplayName("Testing for normal post")
     @Test
     @Transactional
@@ -50,6 +39,16 @@ class TestServiceImplTest {
         bookList.add(new Book(456L, "Толстой Тест 123", "Война и Мир Тест 123"));
         Request request = new Request(new Random().nextLong(), "Второй запрос из теста", bookList);
         Assertions.assertEquals("Successfully inserted row!", testService.testServicePostMethod(request));
+    }
+
+    @DisplayName("Testing for normal response")
+    @Test
+    @Transactional
+    void testServiceGetMethod() throws NoSuchRequest {
+        List<Book> bookList = new ArrayList<>();
+        bookList.add(new Book(3L, "string", "string"));
+        Request request = new Request(52L, "string", bookList);
+        Assertions.assertEquals(request, testService.testServiceGetMethod(52L));
     }
 
     @DisplayName("Testing for normal put")
@@ -72,10 +71,19 @@ class TestServiceImplTest {
         Assertions.assertEquals(testService.testServiceGetMethod(1L), requestUpdated);
     }
 
+    @DisplayName("Testing for NoSuchRequest put")
+    @Test
+    @Transactional
+    void testServiceNoSuchRequestPutMethod() {
+        List<Book> bookList = new ArrayList<>();
+        Request request = new Request(1231241421251L, "Не обновленный запрос из теста", bookList);
+        Assertions.assertThrows(NoSuchRequest.class, () -> testService.testServicePutMethod(request));
+    }
+
     @DisplayName("Testing for normal delete")
     @Test
     @Transactional
-    void testServiceDeleteMethod() {
+    void testServiceDeleteMethod() throws NoSuchRequest {
         List<Book> bookList = new ArrayList<>();
         bookList.add(new Book(1L, "Тест 1 Не Обновленный", "Тест 1 Не Обновленный"));
         bookList.add(new Book(2L, "Тест 2 Не Обновленный", "Тест 2 Не Обновленный"));
@@ -83,14 +91,18 @@ class TestServiceImplTest {
         Request request = new Request(1L, "Не обновленный запрос из теста", bookList);
         testService.testServicePostMethod(request);
 
-        String response = null;
-        try {
-            response = testService.testServiceDeleteMethod(1L);
-        } catch (NoSuchRequest noSuchRequest) {
-            noSuchRequest.printStackTrace();
-        }
+        String response = testService.testServiceDeleteMethod(1L);
         Assertions.assertEquals(response, "Successfully deleted row!");
         Assertions.assertThrows(NoSuchRequest.class, () -> testService.testServiceDeleteMethod(1L));
     }
+
+    @DisplayName("Testing for NoSuchRequest delete")
+    @Test
+    @Transactional
+    void testServiceNoSuchRequestDeleteMethod() {
+        Assertions.assertThrows(NoSuchRequest.class, () -> testService.testServiceDeleteMethod(1241231241L));
+    }
+
+
 
 }

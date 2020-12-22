@@ -22,9 +22,5 @@ public class RequestDAO {
     @OneToMany(mappedBy = "requestDao", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BookDao> bookDaoList;
 
-    public void updateBookDaoList(List<BookDao> bookList) {
-        bookDaoList.clear();
-        bookDaoList.addAll(bookList);
-    }
 }
 
