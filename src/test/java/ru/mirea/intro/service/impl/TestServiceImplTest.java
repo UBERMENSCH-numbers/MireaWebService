@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
+import ru.mirea.intro.dao.RequestDAO;
 import ru.mirea.intro.exception.NoSuchRequest;
 import ru.mirea.intro.service.TestService;
 import ru.mirea.intro.service.model.Book;
@@ -38,7 +39,11 @@ class TestServiceImplTest {
         List<Book> bookList = new ArrayList<>();
         bookList.add(new Book(456L, "Толстой Тест 123", "Война и Мир Тест 123"));
         Request request = new Request(new Random().nextLong(), "Второй запрос из теста", bookList);
-        Assertions.assertEquals(request, testService.testServicePostMethod(request));
+        Request insertedRequest = testService.testServicePostMethod(request);
+
+        request.setId(insertedRequest.getId());
+        request.getBookList().get(0).setId(insertedRequest.getBookList().get(0).getId());
+        Assertions.assertEquals(request, insertedRequest);
     }
 
     @DisplayName("Testing for normal response")

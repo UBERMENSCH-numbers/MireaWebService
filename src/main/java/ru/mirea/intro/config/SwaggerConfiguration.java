@@ -1,5 +1,6 @@
 package ru.mirea.intro.config;
 
+import com.google.common.base.Predicates;
 import com.google.common.collect.Lists;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,19 +26,19 @@ public class SwaggerConfiguration {
     public Docket swaggerSpringfoxDocket() {
 
         Contact contact = new Contact(
-                "SAS CI Implementation Team",
-                "https://www.sas.com/ru_ru/home.html",
-                "https://www.sas.com/en_us/contact/form/register.html");
+                "Slava Kotelnik",
+                "https://github.com/UBERMENSCH-numbers",
+                "kotelnik.slava@gmail.com");
 
         List<VendorExtension> vext = new ArrayList<>();
         ApiInfo apiInfo = new ApiInfo(
-                "Introduction to integration MIREA",
-                "MIREA Web-service for testing",
-                "1.0",
-                "...",
+                "WebService For Practice",
+                "That's my small Java Spring WebService for practice",
+                "1.1",
+                null,
                 contact,
-                "https://www.sas.com/ru_ru/legal/copyright.html",
-                "https://www.sas.com/ru_ru/legal/copyright.html",
+                null,
+                null,
                 vext);
 
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
@@ -48,9 +49,9 @@ public class SwaggerConfiguration {
                 .useDefaultResponseMessages(false)
                 .select()
                 .paths(PathSelectors.regex(DEFAULT_INCLUDE_PATTERN))
-                .apis(RequestHandlerSelectors.basePackage(("ru.mirea")))
+                .apis(RequestHandlerSelectors.any())
                 .build();
-        return docket;
+    return docket;
     }
 
 
