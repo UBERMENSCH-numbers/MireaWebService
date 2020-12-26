@@ -38,7 +38,7 @@ class TestServiceImplTest {
         List<Book> bookList = new ArrayList<>();
         bookList.add(new Book(456L, "Толстой Тест 123", "Война и Мир Тест 123"));
         Request request = new Request(new Random().nextLong(), "Второй запрос из теста", bookList);
-        Assertions.assertEquals("Successfully inserted row!", testService.testServicePostMethod(request));
+        Assertions.assertEquals(request, testService.testServicePostMethod(request));
     }
 
     @DisplayName("Testing for normal response")

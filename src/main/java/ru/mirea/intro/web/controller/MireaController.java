@@ -25,11 +25,12 @@ public class MireaController {
     @PostMapping("/post-method")
     @ApiOperation(value = "add request and all books in data base")
     @ApiParam(name = "requestDto", value = "request model with list of book models")
-    public ResponseEntity<Response<String>> postMethod(@RequestBody RequestDto requestDto) {
+    public ResponseEntity<Response<RequestDto>> postMethod(@RequestBody RequestDto requestDto) {
         try {
             Request request = RequestMapper.REQUEST_MAPPER.requestDTOToRequest(requestDto);
-            String testServiceResponse = testService.testServicePostMethod(request);
-            return new ResponseEntity<>(new Response<>(new Meta(0, "All good!"), testServiceResponse), HttpStatus.OK);
+            Request testServiceResponse = testService.testServicePostMethod(request);
+            RequestDto testServiceResponseDTO = RequestMapper.REQUEST_MAPPER.requestToRequestDto(testServiceResponse);
+            return new ResponseEntity<>(new Response<>(new Meta(0, "All good!"), testServiceResponseDTO), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(new Response<>(new Meta(1, e.toString()), null), HttpStatus.CONFLICT);
@@ -54,11 +55,12 @@ public class MireaController {
     notes = "request id must exist in database \n" +
             "method delete all books from old request, and add all books from new request")
     @ApiParam(name = "requestDto", value = "request model with list of book models to update")
-    public ResponseEntity<Response<String>> putMethod(@RequestBody RequestDto requestDto) {
+    public ResponseEntity<Response<RequestDto>> putMethod(@RequestBody RequestDto requestDto) {
         try {
             Request request = RequestMapper.REQUEST_MAPPER.requestDTOToRequest(requestDto);
-            String testServiceResponse = testService.testServicePutMethod(request);
-            return new ResponseEntity<>(new Response<>(new Meta(0, "All good!"), testServiceResponse), HttpStatus.OK);
+            Request testServiceResponse = testService.testServicePutMethod(request);
+            RequestDto testServiceResponseDTO = RequestMapper.REQUEST_MAPPER.requestToRequestDto(testServiceResponse);
+            return new ResponseEntity<>(new Response<>(new Meta(0, "All good!"), testServiceResponseDTO), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(new Response<>(new Meta(1, e.toString()), null), HttpStatus.CONFLICT);
         }
