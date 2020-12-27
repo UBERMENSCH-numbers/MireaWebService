@@ -1,6 +1,7 @@
 package ru.mirea.intro.web.controller;
 
 import io.swagger.annotations.*;
+import org.springframework.boot.actuate.health.Health;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -73,6 +74,16 @@ public class MireaController {
     public ResponseEntity<Response<String>> deleteMethod(@RequestParam Long id) {
         try {
             String testServiceResponse = testService.testServiceDeleteMethod(id);
+            return new ResponseEntity<>(new Response<>(new Meta(0, "All good!"), testServiceResponse), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new Response<>(new Meta(1, e.toString()), null), HttpStatus.CONFLICT);
+        }
+    }
+    @GetMapping("/health")
+    @ApiOperation(value = "check service is running correctly")
+    public ResponseEntity<Response<Health>> healthMethod() {
+        try {
+            Health testServiceResponse = testService.testServiceHealthMethod();
             return new ResponseEntity<>(new Response<>(new Meta(0, "All good!"), testServiceResponse), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(new Response<>(new Meta(1, e.toString()), null), HttpStatus.CONFLICT);

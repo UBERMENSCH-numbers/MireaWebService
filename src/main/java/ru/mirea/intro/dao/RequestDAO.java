@@ -2,6 +2,7 @@ package ru.mirea.intro.dao;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -19,7 +20,10 @@ public class RequestDAO {
     private Long id;
     @Column(name = "request_value")
     private String requestValue;
+
     @OneToMany(mappedBy = "requestDao", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @OrderBy("id DESC")
+    @ToString.Exclude
     private List<BookDao> bookDaoList;
 
 }
