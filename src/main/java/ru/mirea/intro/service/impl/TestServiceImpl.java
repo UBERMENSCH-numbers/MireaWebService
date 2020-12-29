@@ -3,7 +3,7 @@ package ru.mirea.intro.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.stereotype.Service;
-import ru.mirea.intro.MyHealthIndicator;
+import ru.mirea.intro.service.MyHealthIndicator;
 import ru.mirea.intro.dao.BookDao;
 import ru.mirea.intro.dao.RequestDAO;
 import ru.mirea.intro.dao.repository.RequestRepository;

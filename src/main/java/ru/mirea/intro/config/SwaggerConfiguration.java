@@ -1,6 +1,5 @@
 package ru.mirea.intro.config;
 
-import com.google.common.base.Predicates;
 import com.google.common.collect.Lists;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

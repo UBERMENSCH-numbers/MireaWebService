@@ -1,9 +1,7 @@
-package ru.mirea.intro;
+package ru.mirea.intro.service;
 
-import io.micrometer.core.instrument.binder.jvm.DiskSpaceMetrics;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.boot.actuate.system.DiskSpaceHealthIndicator;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
